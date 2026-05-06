@@ -1,0 +1,73 @@
+{
+  "repo": "cinder-plat-mesh-pipe",
+  "language": "Java",
+  "category": "Platform engineering",
+  "goal": "Package a Java local lab for mesh analysis with capacity fixtures, allocation and spill reports, and documented operating limits.",
+  "review_model": {
+    "terms": [
+      "rollout width",
+      "quota pressure",
+      "route drift",
+      "secret scope"
+    ],
+    "lanes": [
+      "ship",
+      "watch",
+      "hold"
+    ],
+    "score": "signal * 2 + slack + confidence - drag * 3",
+    "purpose": "surface the domain-specific cases that need the most careful review"
+  },
+  "cases": [
+    {
+      "name": "baseline",
+      "focus": "rollout width",
+      "signal": 65,
+      "slack": 43,
+      "drag": 15,
+      "confidence": 71,
+      "score": 199,
+      "lane": "ship"
+    },
+    {
+      "name": "stress",
+      "focus": "quota pressure",
+      "signal": 71,
+      "slack": 43,
+      "drag": 11,
+      "confidence": 76,
+      "score": 228,
+      "lane": "ship"
+    },
+    {
+      "name": "edge",
+      "focus": "route drift",
+      "signal": 54,
+      "slack": 47,
+      "drag": 28,
+      "confidence": 90,
+      "score": 161,
+      "lane": "ship"
+    },
+    {
+      "name": "recovery",
+      "focus": "secret scope",
+      "signal": 60,
+      "slack": 23,
+      "drag": 21,
+      "confidence": 56,
+      "score": 136,
+      "lane": "watch"
+    },
+    {
+      "name": "stale",
+      "focus": "rollout width",
+      "signal": 53,
+      "slack": 35,
+      "drag": 10,
+      "confidence": 72,
+      "score": 183,
+      "lane": "ship"
+    }
+  ]
+}

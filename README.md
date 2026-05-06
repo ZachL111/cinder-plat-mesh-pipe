@@ -1,63 +1,29 @@
 # cinder-plat-mesh-pipe
 
-`cinder-plat-mesh-pipe` is a Java project for Platform engineering. It turns package a Java local lab for mesh analysis with capacity fixtures, allocation and spill reports, and documented operating limits into a small local model with readable fixtures and a direct verification command.
+`cinder-plat-mesh-pipe` is a compact Java repository for platform engineering, centered on this goal: Package a Java local lab for mesh analysis with capacity fixtures, allocation and spill reports, and documented operating limits.
 
-## Reading Cinder Plat Mesh Pipe
+## Why It Exists
 
-Start with the README, then open `metadata/project.json` to check the constants behind the examples. After that, `fixtures/cases.csv` shows the compact path and `examples/extended_cases.csv` gives a wider look at the same rule.
+The point is to make a small domain rule concrete enough that a reader can change it and immediately see what broke.
 
-## Purpose
+## Cinder Plat Mesh Pipe Review Notes
 
-This project keeps the domain idea close to the tests. That makes it useful as a reference implementation, a small experiment, or a starting point for a more specialized tool.
+The first comparison I would make is `quota pressure` against `secret scope` because it shows where the rule is most opinionated.
 
-## Design Sketch
+## Features
 
-The project is organized around a compact model rather than a large framework. Inputs are scored, classified, and checked against golden fixtures. The constants live in code and are mirrored in metadata so documentation drift is easy to catch. The Java implementation uses a compact package layout and direct assertion checks.
+- `fixtures/domain_review.csv` adds cases for rollout width and quota pressure.
+- `metadata/domain-review.json` records the same cases in structured form.
+- `config/review-profile.json` captures the read order and the two review questions.
+- `examples/cinder-plat-mesh-walkthrough.md` walks through the case spread.
+- The Java code includes a review path for `quota pressure` and `secret scope`.
+- `docs/field-notes.md` explains the strongest and weakest cases.
 
-## Fixture Notes
+## Architecture Notes
 
-`pressure` is the first example I would inspect because it lands on the `review` path with a score of 110. The broader file also keeps `degraded` at -10 and `recovery` at 253, which gives the model a useful low-to-high spread.
+The implementation keeps the scoring rule plain: reward signal and confidence, preserve slack, penalize drag, then classify the result into a review lane.
 
-## What It Does
-
-- Uses fixture data to keep route policy changes visible in code review.
-- Includes extended examples for rollout constraints, including `recovery` and `degraded`.
-- Documents environment checks tradeoffs in `docs/operations.md`.
-- Runs locally with a single verification command and no external credentials.
-- Stores project constants and verification metadata in `metadata/project.json`.
-
-## Setup
-
-The only required setup is the local Java toolchain. After cloning, stay in the repo root so fixture paths resolve correctly.
-
-## Verification
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File scripts/audit.ps1
-```
-
-The audit command checks repository structure and README constraints before it delegates to the verifier.
-
-## Files Worth Reading
-
-- `src`: primary implementation
-- `tests`: verification harness
-- `fixtures`: compact golden scenarios
-- `examples`: expanded scenario set
-- `metadata`: project constants and verification metadata
-- `docs`: operations and extension notes
-- `scripts`: local verification and audit commands
-
-## Limits
-
-The fixture set is deliberately small. That keeps the review surface clear, but it also means the model should not be treated as a complete domain simulator.
-
-## Next Directions
-
-- Add a loader for `examples/extended_cases.csv` and promote selected cases into the language test suite.
-- Add a short report command that prints the score breakdown for a single scenario.
-- Add malformed input fixtures so the failure path is as visible as the happy path.
-- Add one more platform engineering fixture that focuses on a malformed or borderline input.
+The Java addition stays small enough to inspect in one sitting.
 
 ## Usage
 
@@ -65,4 +31,10 @@ The fixture set is deliberately small. That keeps the review surface clear, but 
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify.ps1
 ```
 
-This runs the language-level build or test path against the compact fixture set.
+## Tests
+
+The same command runs the local verification path. The highest-scoring domain case is `stress` at 228, which lands in `ship`. The most cautious case is `recovery` at 136, which lands in `watch`.
+
+## Limitations And Roadmap
+
+This remains a local project with deterministic fixtures. It does not depend on credentials, hosted services, or live data. Future work should add richer malformed inputs before widening the public API.

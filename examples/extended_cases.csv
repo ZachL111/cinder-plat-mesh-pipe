@@ -1,0 +1,7 @@
+name,demand,capacity,latency,risk,weight,score,decision,reason
+baseline,67,82,14,15,6,119,review,platform engineering baseline scenario exercises the review path for bounded failure handling
+pressure,76,72,27,18,11,110,review,platform engineering pressure scenario exercises the review path for bounded failure handling
+surge,101,99,21,14,13,239,accept,platform engineering surge scenario keeps the local fixture within the modeled acceptance band
+degraded,65,63,35,25,7,-10,review,platform engineering degraded scenario exercises the review path for bounded failure handling
+recovery,91,109,17,10,11,253,accept,platform engineering recovery scenario keeps the local fixture within the modeled acceptance band
+boundary,75,79,21,18,7,103,review,platform engineering boundary scenario exercises the review path for bounded failure handling
